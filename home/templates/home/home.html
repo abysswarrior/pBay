@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'home/css/home_style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-10">
+
+                <a href="{% url 'home:home' %}" class="btn btn-danger">All</a>
+                <!-- Example split danger button -->
+                {% for category in categories %}
+                    <div class="btn-group">
+                        <a href="{{ category.get_absolute_url }}" class="btn btn-info">{{ category.name }}</a>
+                        <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="visually-hidden">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+
+                            {% for sub in category.s_category.all %}
+
+                                <li><a class="dropdown-item" href="{{ sub.get_absolute_url }}">{{ sub.name }}</a></li>
+
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                {% endfor %}
+
+
+            </div>
+
+
+        </div>
+
+        <br><br>
+
+        <div class="row">
+
+
+            {% for product in products %}
+                <div class="col-md-3">
+
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ product.image.url }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} $ </h6>
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-primary">See More</a>
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

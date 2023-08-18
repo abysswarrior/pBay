@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h3>Bill</h3><br>
+
+    <table class="table table-bordered">
+
+        <tbody>
+        <tr>
+            <th scope="row">Name</th>
+            <td>{{ order.user.full_name }}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">Email</th>
+            <td>{{ order.user.email }}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">Phone</th>
+            <td>{{ order.user.phone_number }}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">Submit Date</th>
+            <td>{{ order.created|date }}</td>
+
+        </tr>
+        <tr>
+            <th scope="row">Discount</th>
+            {% if order.discount %}
+
+                <td>{{ order.discount }} %</td>
+
+            {% else %}
+
+                <td> -- </td>
+
+            {% endif %}
+
+        </tr>
+        <tr>
+            <th scope="row">Final Price</th>
+            <td>{{ order.get_total_price|floatformat }}</td>
+
+        </tr>
+        </tbody>
+    </table><br>
+
+    <form action="{% url 'orders:coupon_add' order.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Coupon">
+    </form><br>
+
+    <a href="{% url 'orders:order_pay' order.id %}" class="btn btn-primary">Pay</a>
+
+{% endblock %}
