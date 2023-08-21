@@ -71,7 +71,7 @@ $ pip install -r requirements.txt
 $ mv .env.example .env
 ```
 
-**Step 2 :** to use OTP code verification create an account in [kavenegar](https://kavenegar.com/) and 
+**Step 3 :** to use OTP code verification create an account in [kavenegar](https://kavenegar.com/) and 
 put your API Key in `.env`.
 
 > you need some KYC verification to use API completely
@@ -80,7 +80,7 @@ put your API Key in `.env`.
 KAVENEGAR_OTP_SECRET="put your secret here"
 ```
 
-**Step 2 :** if you want to store your media files in object storages (like aws, ...) set `USE_ARVAN_BUCKET` in 
+**Step 4 :** if you want to store your media files in object storages (like aws, ...) set `USE_ARVAN_BUCKET` in 
 environment file to `True` and set other secret keys.
 
 > for this project i used [Arvan Cloud](https://www.arvancloud.ir/en/products/cloud-storage) object storage called bucket.
@@ -96,20 +96,20 @@ ARVAN_SECRET_ACCESS_KEY='put your keys here'
 ARVAN_ENDPOINT_URL='put your keys here'
 ARVAN_STORAGE_BUCKET_NAME='put your keys here'
 ```
-**Step 2 :** go to `docker_compose_files` directory and run `Redis` and `RabbitMQ` containers.
+**Step 5 :** go to `docker_compose_files` directory and run `Redis` and `RabbitMQ` containers.
 
 ```shell
 $ docker compose up -d
 ```
 
-**Step 2 :** run `celery` and `celery beat`.
+**Step 6 :** run `celery` and `celery beat`.
 
 ```shell
 $ celery -A config worker -l info
 $ celery -A config beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
 ```
 
-**Step 3 :** run django and reach whole project in [http://localhost:8000/](http://localhost:8000/).
+**Step 7 :** run django and reach whole project in [http://localhost:8000/](http://localhost:8000/).
 
 ```shell
 $ python manage.py runserver
